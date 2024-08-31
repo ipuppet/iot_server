@@ -3,31 +3,41 @@ from rest_framework import serializers
 from . import models
 
 
-class AutomationSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = models.Automation
-        fields = ["name", "description", "created_at", "updated_at", "type"]
-
-
-class ConditionSerializer(serializers.HyperlinkedModelSerializer):
+class ConditionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Condition
-        fields = ["name", "description", "trigger", "value", "operator"]
+        fields = ["id", "name", "trigger", "value", "operator"]
 
 
-class ActionSerializer(serializers.HyperlinkedModelSerializer):
+class ActionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Action
-        fields = ["name", "description", "action", "target"]
+        fields = ["id", "name", "action", "target"]
 
 
-class AutomationConditionSerializer(serializers.HyperlinkedModelSerializer):
+class AutomationSerializer(serializers.ModelSerializer):
+    conditions = ConditionSerializer(many=True)
+    actions = ActionSerializer(many=True)
+
     class Meta:
-        model = models.AutomationCondition
-        fields = ["automation", "condition"]
+        model = models.Automation
+        fields = [
+            "id",
+            "name",
+            "description",
+            "created_at",
+            "updated_at",
+            "type",
+            "conditions",
+            "actions",
+        ]
+        read_only_fields = ["created_at", "updated_at"]
 
+    def create(self, validated_data):
+        return models.Automation.objects.create_automation(**validated_data)
 
-class AutomationActionSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = models.AutomationAction
-        fields = ["automation", "action"]
+    def update(self, instance, validated_data):
+        instance = models.Automation.objects.update_automation(
+            instance, **validated_data
+        )
+        return instance
