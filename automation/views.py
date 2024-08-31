@@ -1,6 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework import permissions, viewsets
 
-# Create your views here.
-def index(request):
-    return HttpResponse("Hello, world.")
+from .serializers import AutomationSerializer
+from .models import Automation
+
+
+class AutomationViewSet(viewsets.ModelViewSet):
+    queryset = Automation.objects.all().order_by("created_at")
+    serializer_class = AutomationSerializer
+    permission_classes = [permissions.IsAuthenticated]
