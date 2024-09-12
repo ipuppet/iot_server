@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Dashboard</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 250px;
+            background-color: #444;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding-top: 60px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 16px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        /* Main content styles */
+        .main-content {
+            margin-left: 250px; /* Same as the width of the sidebar */
+            padding: 20px;
+        }
+
+        .main-content h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Device status styles */
+        .status {
+            font-weight: bold;
+        }
+
+        .status.on {
+            color: green;
+        }
+
+        .status.off {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h2>IoT Dashboard</h2>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#">Dashboard</a>
+        <a href="#">Sensors</a>
+        <a href="#">Controls</a>
+        <a href="#">Settings</a>
+        <a href="#">Reports</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>Welcome to the IoT Dashboard</h1>
+
+        <!-- Temperature Data -->
+        <div class="card">
+            <h3>Temperature Sensor</h3>
+            <p>Current Temperature: <strong>{{ temperature }}°C</strong></p>
+            <p>AC Status: <span class="status {{ ac_status|lower }}">{{ ac_status }}</span></p>
+        </div>
+
+        <!-- Humidity Data -->
+        <div class="card">
+            <h3>Humidity Sensor</h3>
+            <p>Current Humidity: <strong>{{ humidity }}%</strong></p>
+            <p>Humidifier Status: <span class="status {{ humidifier_status|lower }}">{{ humidifier_status }}</span></p>
+        </div>
+
+        <!-- Air Quality Data -->
+        <div class="card">
+            <h3>Air Quality</h3>
+            <p>Current AQI: <strong>{{ air_quality_index }}</strong></p>
+            <p>Air Purifier Status: <span class="status {{ air_purifier_status|lower }}">{{ air_purifier_status }}</span></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 IoT Dashboard</p>
+    </div>
+
+</body>
+</html>
