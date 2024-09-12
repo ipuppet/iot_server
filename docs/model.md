@@ -17,7 +17,7 @@ For action devices, the fields are the actions that the device will perform. For
 ### Device Field
 
 - id
-- device: device_id
+- device: [Device](#device)
 - name
 - type: "status" | "control"
 - target: path of the field in the device data, for control fields it is the command to send to the device
@@ -25,7 +25,7 @@ For action devices, the fields are the actions that the device will perform. For
 ### Device Data
 
 - id
-- device: device_id
+- device: [Device](#device)
 - name
 - value
 - timestamp
@@ -48,13 +48,13 @@ For `and` automations, all conditions must be met for the actions to be executed
 ### Condition
 
 - id
-- device
-- field
+- device: [Device](#device)
+- field: [Device Field](#device-field)
 - value
 - operator: "eq" | "ne" | "gt" | "lt" | "ge" | "le"
 
 ### Action
 
 - id
-- device
-- field
+- device: [Device](#device)
+- field: [Device Field](#device-field)
