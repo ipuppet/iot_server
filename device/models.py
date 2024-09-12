@@ -35,8 +35,11 @@ class Device(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     type = models.CharField(max_length=10)
-    fields = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def fields(self):
+        return self.field_set.all()
 
 
 class DeviceField(models.Model):

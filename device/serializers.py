@@ -6,13 +6,13 @@ from . import models
 class DeviceFieldSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.DeviceField
-        fields = ["id", "name", "type", "target"]
+        fields = ["name", "type", "target"]
 
 
 class DeviceDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.DeviceData
-        fields = ["id", "device", "name", "value", "timestamp"]
+        fields = ["device", "name", "value", "timestamp"]
 
 
 class DeviceSerializer(serializers.ModelSerializer):

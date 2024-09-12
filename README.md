@@ -29,7 +29,7 @@ docker exec -it cits5506-server bash
 ## Init Database
 
 ```shell
-python manage.py makemigrations automation
+python manage.py makemigrations
 python manage.py migrate
 echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'email@example.com', 'cits5506')" | python manage.py shell
 ```

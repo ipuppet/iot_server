@@ -4,6 +4,6 @@ from . import views
 
 router = DefaultRouter()
 router.register(r"devices", views.DeviceViewSet)
-router.register(r"data/(?P<device_id>\d+)", views.DeviceDataViewSet)
+router.register(r"devices/(?P<id>\d+)/data", views.DeviceDataViewSet, "device-data")
 
 urlpatterns = router.urls

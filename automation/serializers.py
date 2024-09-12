@@ -6,13 +6,13 @@ from . import models
 class ConditionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Condition
-        fields = ["id", "device", "field", "value", "operator"]
+        fields = ["device", "field", "value", "operator"]
 
 
 class ActionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Action
-        fields = ["id", "device", "field"]
+        fields = ["device", "field"]
 
 
 class AutomationSerializer(serializers.ModelSerializer):
