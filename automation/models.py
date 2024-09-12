@@ -2,10 +2,6 @@ from django.apps import apps
 from django.db import models
 
 
-Device = apps.get_model("device", "Device")
-DeviceField = apps.get_model("device", "DeviceField")
-
-
 class AutomationManager(models.Manager):
     def create_automation(self, name, description, type, conditions, actions):
         automation = self.create(name=name, description=description, type=type)
@@ -73,8 +69,8 @@ class Condition(models.Model):
     automation = models.ForeignKey(
         Automation, on_delete=models.CASCADE, related_name="conditions"
     )
-    device = models.ForeignKey(Device, on_delete=models.CASCADE)
-    field = models.ForeignKey(DeviceField, on_delete=models.CASCADE)
+    device = models.ForeignKey("device.Device", on_delete=models.CASCADE)
+    field = models.ForeignKey("device.DeviceField", on_delete=models.CASCADE)
     value = models.CharField(max_length=100)
     operator = models.CharField(max_length=10)
 
@@ -83,5 +79,5 @@ class Action(models.Model):
     automation = models.ForeignKey(
         Automation, on_delete=models.CASCADE, related_name="actions"
     )
-    device = models.ForeignKey(Device, on_delete=models.CASCADE)
-    field = models.ForeignKey(DeviceField, on_delete=models.CASCADE)
+    device = models.ForeignKey("device.Device", on_delete=models.CASCADE)
+    field = models.ForeignKey("device.DeviceField", on_delete=models.CASCADE)
