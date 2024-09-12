@@ -36,6 +36,7 @@ class Device(models.Model):
     description = models.TextField()
     type = models.CharField(max_length=10)
     fields = models.JSONField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class DeviceField(models.Model):
