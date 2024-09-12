@@ -5,7 +5,7 @@ WORK_DIR=$(
 
 cd $WORK_DIR
 
-image_name = "cits5506-server"
+image_name="cits5506-server"
 
 docker container stop $image_name
 docker container rm $image_name
