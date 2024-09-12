@@ -5,9 +5,13 @@ WORK_DIR=$(
 
 cd $WORK_DIR
 
-image_name="cits5506-server"
+image_name=cits5506-server
+db_file=$WORK_DIR/db.sqlite3
 
 docker container stop $image_name
 docker container rm $image_name
 docker build -t $image_name .
-docker run -d -p 8090:8000 -v $WORK_DIR/db.sqlite3:/app/db.sqlite3 --name $image_name $image_name
+if [ ! -f $db_file ]; then
+    touch $db_file
+fi
+docker run -d -p 8090:8000 -v $db_file:/app/db.sqlite3 --name $image_name $image_name
