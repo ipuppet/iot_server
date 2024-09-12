@@ -1,5 +1,9 @@
-from typing import Any
+from django.apps import apps
 from django.db import models
+
+
+Device = apps.get_model("device", "Device")
+DeviceField = apps.get_model("device", "DeviceField")
 
 
 class AutomationManager(models.Manager):
@@ -8,17 +12,16 @@ class AutomationManager(models.Manager):
         for condition in conditions:
             Condition.objects.create(
                 automation=automation,
-                name=condition["name"],
-                trigger=condition["trigger"],
+                device=condition["device"],
+                field=condition["field"],
                 value=condition["value"],
                 operator=condition["operator"],
             )
         for action in actions:
             Action.objects.create(
                 automation=automation,
-                name=action["name"],
-                action=action["action"],
-                target=action["target"],
+                device=action["device"],
+                field=action["field"],
             )
         return automation
 
@@ -34,17 +37,16 @@ class AutomationManager(models.Manager):
         for condition in conditions:
             Condition.objects.create(
                 automation=automation,
-                name=condition["name"],
-                trigger=condition["trigger"],
+                device=condition["device"],
+                field=condition["field"],
                 value=condition["value"],
                 operator=condition["operator"],
             )
         for action in actions:
             Action.objects.create(
                 automation=automation,
-                name=action["name"],
-                action=action["action"],
-                target=action["target"],
+                device=action["device"],
+                field=action["field"],
             )
         return automation
 
@@ -71,17 +73,9 @@ class Condition(models.Model):
     automation = models.ForeignKey(
         Automation, on_delete=models.CASCADE, related_name="conditions"
     )
-    name = models.CharField(max_length=100)
-    trigger = models.CharField(max_length=100)
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    field = models.ForeignKey(DeviceField, on_delete=models.CASCADE)
     value = models.CharField(max_length=100)
-    """
-    eq: equal
-    ne: not equal
-    gt: greater than
-    lt: less than
-    ge: greater than or equal
-    le: less than or equal
-    """
     operator = models.CharField(max_length=10)
 
 
@@ -89,6 +83,5 @@ class Action(models.Model):
     automation = models.ForeignKey(
         Automation, on_delete=models.CASCADE, related_name="actions"
     )
-    name = models.CharField(max_length=100)
-    action = models.CharField(max_length=100)
-    target = models.CharField(max_length=100)
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    field = models.ForeignKey(DeviceField, on_delete=models.CASCADE)
