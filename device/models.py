@@ -51,6 +51,6 @@ class DeviceField(models.Model):
 
 class DeviceData(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
+    field = models.ForeignKey(DeviceField, on_delete=models.CASCADE)
     value = models.CharField(max_length=100)
     timestamp = models.DateTimeField(auto_now_add=True)
