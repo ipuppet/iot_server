@@ -12,7 +12,7 @@ class DeviceFieldSerializer(serializers.ModelSerializer):
 class DeviceDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.DeviceData
-        fields = ["device", "name", "value", "timestamp"]
+        fields = ["device", "field", "value", "timestamp"]
 
 
 class DeviceSerializer(serializers.ModelSerializer):
