@@ -37,12 +37,10 @@ echo "from django.contrib.auth.models import User; User.objects.create_superuser
 ### Reset Database
 
 ```shell
-rm db.sqlite3
-rm -rf device/migrations
-rm -rf automation/migrations
+./resetdb.sh
 ```
 
-Then run the `Init Database` commands again.
+This will automatically initialize the database after resetting it.
 
 ## Run Server
 
