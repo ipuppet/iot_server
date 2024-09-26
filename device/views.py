@@ -18,7 +18,7 @@ class DeviceDataViewSet(
 
     def get_queryset(self):
         device_id = self.kwargs["id"]
-        return DeviceData.objects.filter(device=device_id).order_by("timestamp")
+        return DeviceData.objects.filter(device=device_id).order_by("-timestamp")
 
     def perform_create(self, serializer):
         device_id = self.kwargs["id"]

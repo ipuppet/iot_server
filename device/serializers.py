@@ -6,13 +6,24 @@ from . import models
 class DeviceFieldSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.DeviceField
-        fields = ["name", "type", "target"]
+        fields = ["name", "value"]
 
 
 class DeviceDataSerializer(serializers.ModelSerializer):
+    field = serializers.CharField()
+
     class Meta:
         model = models.DeviceData
-        fields = ["device", "field", "value", "timestamp"]
+        fields = ["field", "value", "timestamp"]
+        read_only_fields = ["timestamp"]
+
+    def create(self, validated_data):
+        return models.DeviceData.objects.create_device_data(**validated_data)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data["field"] = instance.field.value
+        return data
 
 
 class DeviceSerializer(serializers.ModelSerializer):

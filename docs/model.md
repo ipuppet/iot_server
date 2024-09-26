@@ -4,29 +4,28 @@
 
 ### Device
 
-- id
+- id: UUID
 - name
 - description
 - type: "condition" | "action"
 - fields: [[Device Field]](#device-field)
 
-For condition devices, the fields are the conditions that the device will check. For example, a temperature sensor device will have a status field `temperature` that indicates the current temperature.
-
-For action devices, the fields are the actions that the device will perform. For example, a light device will have control fields `on` and `off` that will be send to the device to turn it on or off. It can also have a status field `brightness` with a value between `0` and `100` that indicates the brightness of the light.
+For condition devices, the fields are the conditions that the device will check. For example, a temperature sensor device will have a field named `Temperature` with value `temperature`, name is for display purposes only, and the value is the `field` of the device data.
+For action devices, the fields are the infrared codes that the device can send. For example, a TV device will have a field named `Power` with value `specific-infrared-code`.
 
 ### Device Field
 
-- id
 - device: [Device](#device)
 - name
-- type: "status" | "control"
-- target: path of the field in the device data, for control fields it is the command to send to the device
+- value
+
+PK: `unique_together = ["device", "name", "value"]`
 
 ### Device Data
 
 - id
 - device: [Device](#device)
-- name
+- field
 - value
 - timestamp
 

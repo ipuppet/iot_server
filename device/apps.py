@@ -6,27 +6,25 @@ def init_device(sender, **kwargs):
     from .models import Device
 
     try:
+        if Device.objects.exists():
+            return
         Device.objects.create_device(
             id="A20D1CBE-78A3-41AF-9A61-D5243914A0E6",
-            name="Temperature & Humidity",
+            name="Temperature & Humidity Sensor",
             description="A temperature and humidity sensor",
             type="condition",
             fields=[
-                {
-                    "name": "temperature",
-                    "type": "status",
-                    "target": "data.temperature",
-                },
-                {"name": "humidity", "type": "status", "target": "data.humidity"},
+                {"name": "Temperature", "value": "temperature"},
+                {"name": "Humidity", "value": "humidity"},
             ],
         )
         Device.objects.create_device(
             id="B131E7F7-695E-442B-851F-4A8EE00A34FF",
-            name="Dust",
+            name="Dust Sensor",
             description="A dust sensor",
             type="condition",
             fields=[
-                {"name": "dust", "type": "status", "target": "data.dust"},
+                {"name": "Dust", "value": "dust"},
             ],
         )
     except Exception as e:

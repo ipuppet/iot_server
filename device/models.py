@@ -10,7 +10,7 @@ class DeviceManager(models.Manager):
                 device=device,
                 name=field["name"],
                 type=field["type"],
-                target=field["target"],
+                value=field["value"],
             )
         return device
 
@@ -25,7 +25,7 @@ class DeviceManager(models.Manager):
                 device=device,
                 name=field["name"],
                 type=field["type"],
-                target=field["target"],
+                value=field["value"],
             )
         return device
 
@@ -43,11 +43,22 @@ class Device(models.Model):
 class DeviceField(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE, related_name="fields")
     name = models.CharField(max_length=100)
-    type = models.CharField(max_length=10)
-    target = models.CharField(max_length=100)
+    value = models.CharField(max_length=100)
+
+    class Meta:
+        unique_together = ["device", "name", "value"]
+
+
+class DeviceDataManager(models.Manager):
+    def create_device_data(self, device_id, field, value):
+        device = Device.objects.get(id=device_id)
+        field_id = DeviceField.objects.get(device=device, value=field)
+        return self.create(device=device, field=field_id, value=value)
 
 
 class DeviceData(models.Model):
+    objects = DeviceDataManager()
+
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
     field = models.ForeignKey(DeviceField, on_delete=models.CASCADE)
     value = models.CharField(max_length=100)
