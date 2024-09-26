@@ -15,3 +15,4 @@ if [ ! -f $db_file ]; then
     touch $db_file
 fi
 docker run -d -p 8090:8000 -v $db_file:/app/db.sqlite3 --name $image_name $image_name
+docker exec -t $image_name bash -c "/app/resetdb.sh"
