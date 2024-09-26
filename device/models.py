@@ -9,7 +9,6 @@ class DeviceManager(models.Manager):
             DeviceField.objects.create(
                 device=device,
                 name=field["name"],
-                type=field["type"],
                 value=field["value"],
             )
         return device
@@ -24,7 +23,6 @@ class DeviceManager(models.Manager):
             DeviceField.objects.create(
                 device=device,
                 name=field["name"],
-                type=field["type"],
                 value=field["value"],
             )
         return device
