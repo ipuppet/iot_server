@@ -1,9 +1,10 @@
 from django.db import models
+import uuid
 
 
 class DeviceManager(models.Manager):
-    def create_device(self, name, description, type, fields):
-        device = self.create(name=name, description=description, type=type)
+    def create_device(self, id, name, description, type, fields):
+        device = self.create(id=id, name=name, description=description, type=type)
         for field in fields:
             DeviceField.objects.create(
                 device=device,
@@ -32,14 +33,11 @@ class DeviceManager(models.Manager):
 class Device(models.Model):
     objects = DeviceManager()
 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
     description = models.TextField()
     type = models.CharField(max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
-
-    @property
-    def fields(self):
-        return self.field_set.all()
 
 
 class DeviceField(models.Model):
