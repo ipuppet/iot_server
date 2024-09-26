@@ -7,6 +7,7 @@ cd $WORK_DIR
 
 image_name=cits5506-server
 db_file=$WORK_DIR/db.sqlite3
+need_initdb=false
 
 docker container stop $image_name
 docker container rm $image_name
@@ -19,11 +20,12 @@ fi
 
 if [ ! -f $db_file ]; then
     touch $db_file
+    need_initdb=true
 fi
 
 docker run -d -p 8090:8000 -v $db_file:/app/db.sqlite3 --name $image_name $image_name
 
-if [ "$1" == "reset" ]; then
+if [ "$need_initdb" = true ]; then
     docker exec -t $image_name bash -c "/app/initdb.sh"
     docker container restart $image_name
 fi
