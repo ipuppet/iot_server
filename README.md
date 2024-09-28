@@ -9,10 +9,30 @@ git clone https://github.com/ipuppet/iot_server
 cd iot_server
 ```
 
+There are two ways to install the dependencies: using `pip` or using `docker`.
+
 ### Use Pip
 
 ```shell
 pip install -r requirements.txt
+```
+
+#### Init Database
+
+```shell
+./initdb.sh
+```
+
+#### Reset Database
+
+```shell
+./resetdb.sh
+```
+
+#### Run Server
+
+```shell
+python manage.py runserver
 ```
 
 ### Use Docker
@@ -23,19 +43,11 @@ This will create a docker container named `cits5506-server`.
 
 ```shell
 bash ./build.sh
-docker exec -it cits5506-server bash
 ```
 
-## Init Database
+This will automatically initialize the database if it does not exist.
+
+#### Reset Database
 
 ```shell
-python manage.py makemigrations automation
-python manage.py migrate
-echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'email@example.com', 'cits5506')" | python manage.py shell
-```
-
-## Run Server
-
-```shell
-python manage.py runserver
-```
+bash ./build.sh reset

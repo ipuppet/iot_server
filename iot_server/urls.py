@@ -13,5 +13,6 @@ urlpatterns = [
         name="swagger-ui",
     ),
     # App URLs
+    path("device/", include("device.urls")),
     path("automation/", include("automation.urls")),
 ]
