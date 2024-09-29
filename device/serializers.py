@@ -1,4 +1,5 @@
 from rest_framework import serializers
+import uuid
 
 from . import models
 
@@ -32,8 +33,10 @@ class DeviceSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Device
         fields = ["id", "name", "description", "type", "fields"]
+        read_only_fields = ["id"]
 
     def create(self, validated_data):
+        validated_data["id"] = uuid.uuid4()
         return models.Device.objects.create_device(**validated_data)
 
     def update(self, instance, validated_data):

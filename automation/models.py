@@ -1,5 +1,14 @@
-from django.apps import apps
 from django.db import models
+
+from device.models import DeviceField
+
+
+def getField(device, field, isCondition=False):
+    if isCondition:
+        result = DeviceField.objects.get(device=device, value=field["value"])
+    else:
+        result = DeviceField.objects.get(device=device, name=field["name"])
+    return result
 
 
 class AutomationManager(models.Manager):
@@ -9,7 +18,7 @@ class AutomationManager(models.Manager):
             Condition.objects.create(
                 automation=automation,
                 device=condition["device"],
-                field=condition["field"],
+                field=getField(condition["device"], condition["field"], True),
                 value=condition["value"],
                 operator=condition["operator"],
             )
@@ -17,7 +26,7 @@ class AutomationManager(models.Manager):
             Action.objects.create(
                 automation=automation,
                 device=action["device"],
-                field=action["field"],
+                field=getField(action["device"], action["field"], False),
             )
         return automation
 
@@ -34,7 +43,7 @@ class AutomationManager(models.Manager):
             Condition.objects.create(
                 automation=automation,
                 device=condition["device"],
-                field=condition["field"],
+                field=getField(condition["device"], condition["field"], True),
                 value=condition["value"],
                 operator=condition["operator"],
             )
@@ -42,7 +51,7 @@ class AutomationManager(models.Manager):
             Action.objects.create(
                 automation=automation,
                 device=action["device"],
-                field=action["field"],
+                field=getField(action["device"], action["field"], False),
             )
         return automation
 
@@ -55,14 +64,6 @@ class Automation(models.Model):
     type = models.CharField(max_length=10)  # and, or
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    @property
-    def conditions(self):
-        return self.condition_set.all()
-
-    @property
-    def actions(self):
-        return self.action_set.all()
 
 
 class Condition(models.Model):

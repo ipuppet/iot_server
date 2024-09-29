@@ -22,7 +22,7 @@ Path: `/device/devices/{id}/data/`
 Method: POST
 Body: json
 
-Example:
+### Example
 
 Post data to device `A20D1CBE-78A3-41AF-9A61-D5243914A0E6`:
 
@@ -32,6 +32,30 @@ Path: `/device/devices/A20D1CBE-78A3-41AF-9A61-D5243914A0E6/data/`
 {
   "field": "temperature",
   "value": 30
+}
+```
+
+Response:
+
+```json
+{
+    "field": "temperature",
+    "value": "30",
+    "timestamp": "2024-09-29T18:43:49.405743Z"
+}
+```
+
+If an automation is triggered, the response will include the triggered automation's infrared signals.
+
+```json
+{
+    "field": "temperature",
+    "value": "30",
+    "timestamp": "2024-09-29T18:43:49.405743Z",
+    "infrareds": [
+        "2222222",
+        "2222222"
+    ]
 }
 ```
 
