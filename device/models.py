@@ -41,7 +41,7 @@ class Device(models.Model):
 class DeviceField(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE, related_name="fields")
     name = models.CharField(max_length=100)
-    value = models.CharField(max_length=100)
+    value = models.CharField(max_length=500)
 
     class Meta:
         unique_together = ["device", "name", "value"]
